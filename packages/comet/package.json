@@ -1,0 +1,40 @@
+{
+  "name": "@celestial/comet",
+  "version": "0.0.1",
+  "description": "The comet can visit every planet",
+  "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
+  "author": "Jona",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "clean": "rm -rfv ./dist",
+    "build": "yarn clean && ../../node_modules/typescript/bin/tsc",
+    "build:watch": "yarn build -w",
+    "test": "jest",
+    "test:watch": "yarn test --watch"
+  },
+  "devDependencies": {
+    "@types/enzyme": "^3.1.14",
+    "@types/enzyme-adapter-react-16": "^1.0.3",
+    "@types/jest": "^23.3.5",
+    "@types/jss": "^9.5.6",
+    "@types/react": "^16.4.16",
+    "@types/react-dom": "^16.0.9",
+    "@types/react-jss": "^8.6.0",
+    "@types/react-test-renderer": "^16.0.3",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.6.0",
+    "jest": "^23.6.0",
+    "react-test-renderer": "^16.5.2",
+    "ts-jest": "^23.10.4"
+  },
+  "dependencies": {
+    "@material-ui/core": "^3.2.0",
+    "@material-ui/icons": "^3.0.1",
+    "jss": "^9.8.7",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-jss": "^8.6.1"
+  }
+}
