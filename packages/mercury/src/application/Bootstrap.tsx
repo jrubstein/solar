@@ -14,6 +14,7 @@ import { create } from 'jss';
 import { jssPreset } from '@material-ui/core/styles'
 import { I18NService } from '../components/i18n/I18NService'
 import { I18nextProvider } from 'react-i18next'
+import Tests from '../components/tests'
 
 
 
@@ -30,6 +31,7 @@ ReactDOM.render(
                     <BrowserRouter>
                         <React.Fragment>
                             <Navigation />
+                            <Tests />
                             <Button color="primary">Button</Button>
                             <Application />
                         </React.Fragment>

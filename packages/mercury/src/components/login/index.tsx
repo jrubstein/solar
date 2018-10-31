@@ -1,60 +1,61 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
-import { LoginForm } from './LoginForm';
-import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
-import { InjectedFormProps } from 'redux-form';
-import {Map} from 'immutable'
+import { Map } from 'immutable'
 import { withNamespaces, WithNamespaces } from 'react-i18next'
-import { CHANGE_LANGUAGE } from '../i18n/Actions'
+import { Dispatch } from 'redux'
+import { WithStyles, StyleRules } from "@material-ui/core/styles"
+import injectSheet from 'react-jss'
+import { LoginForm } from './LoginForm'
+import { connect } from 'react-redux'
+import { LOGIN, LoginData } from './Actions'
 
-interface LoginProps extends WithNamespaces, InjectedFormProps<{}, {}> {
-    language: string,
-    changeLanguage: (language: string) => {}
+const styles: StyleRules = {
+    content: {
+        display: 'flex',
+        'flex-direction': 'column',
+        'justify-content': 'center',
+        'text-align': 'center'
+    }
 }
 
+interface LoginProps extends WithNamespaces, WithStyles {
+    submit: (data: LoginData) => void
+}
 
-//https://gist.github.com/iamtmrobinson/d4bb6e9297300b787891337fe9e07c42
-class Login extends React.Component<LoginProps> {
+class LoginView extends React.Component<LoginProps> {
+
     constructor(props: LoginProps) {
         super(props)
         this.onSubmit = this.onSubmit.bind(this)
     }
 
-    private onSubmit(values: Map<FormData, {}>) {
-        console.log(values.toObject())
-        // https://redux-form.com/7.4.2/docs/faq/howtoclear.md/
+    private onSubmit(values: Map<string, string>) {
+        this.props.submit(values.toObject() as LoginData)
     }
 
     render() {
-        const {language, changeLanguage} = this.props
         return (
-            <React.Fragment>
+            <section className={this.props.classes.content}>
                 <Helmet>
-                    <title>Login</title>
+                    <title>{this.props.t('login')}</title>
                 </Helmet>
-                <span>{this.props.t('title')}</span>
-                <button disabled={language === 'en'} onClick={() => changeLanguage('en')}>EN</button>
-                <button disabled={language === 'es'} onClick={() => changeLanguage('es')}>ES</button>
-                {/* The typing are incorrect for / */}
+                <h1>{this.props.t('login-title')}</h1>
                 <LoginForm onSubmit={this.onSubmit as any}/>
-            </React.Fragment>
+            </section>
         )
     }
 }
 
-
-const mapStateToProps = ({i18n} : any) => {
-    return {
-        language: i18n.language
-    }
+const mapStateToProps = () => {
+    return {}
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        changeLanguage: (language: string) => dispatch(CHANGE_LANGUAGE(language))
+        submit: (data: LoginData) => dispatch(LOGIN(data))
     }
 }
 
-const loginWithTranslations = withNamespaces()(Login)
+
+const loginWithTranslations = withNamespaces()(injectSheet(styles)(LoginView))
 export default connect(mapStateToProps, mapDispatchToProps)(loginWithTranslations)

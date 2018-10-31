@@ -14,7 +14,7 @@ import send from 'koa-send'
     app.use(bodyParser())
     app.use(serve(rootPath, options))
     app.use(compress())
-    
+
     app.use(async (context: Koa.Context, next) => {
         await next()
         if (context.method !== 'HEAD' && context.method !== 'GET') return
