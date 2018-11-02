@@ -1,8 +1,9 @@
-export const LOGIN_SUCESSFUL_ACTION_TYPE = 'LOGIN_SUCESSFUL'
-export const LOGIN_FAILED_ACTION_TYPE = 'LOGIN_FAILED'
+export const LOGIN_SUCESSFUL_ACTION_TYPE: string = 'LOGIN_SUCESSFUL'
+export const LOGIN_FAILED_ACTION_TYPE: string = 'LOGIN_FAILED'
+export const LOGIN_ACTION_TYPE: string = 'LOGIN'
 
 export type LoginData = {
-    user: string,
+    username: string,
     password: string
 }
 
@@ -11,22 +12,25 @@ export type LoginAction = {
     data: LoginData
 }
 
-export const LOGIN = (data: LoginData): any => {
-    return (dispatch) => {
-        return Promise.resolve(data).then(() => {
-            dispatch(LOGIN_SUCESSFUL('user', 'token'))
-        }).catch(_ => dispatch(LOGIN_FAILED()))
+export const LOGIN = (loginData: LoginData): LoginAction => {
+    return {
+        type: LOGIN_ACTION_TYPE,
+        data: {
+            ...loginData
+        }
     }
 }
 
 export const LOGIN_SUCESSFUL = (user: any, token: string) => {
+    console.log(user, token)
     return {
         user, token, type: LOGIN_SUCESSFUL_ACTION_TYPE,
     }
 }
 
-export const LOGIN_FAILED = () => {
+export const LOGIN_FAILED = (error) => {
     return {
         type: LOGIN_FAILED_ACTION_TYPE,
+        error
     }
 }

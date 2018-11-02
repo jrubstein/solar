@@ -11,16 +11,16 @@ const styles: StyleRules = {
 }
 
 type LoginFields = {
-    user?: string,
+    username?: string,
     password?: string,
 }
 
 const validate = (data: Map<string, string>) => {
     const errors: LoginFields = {}
-    if (!data.get('user')) {
-      errors.user = 'Required'
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(data.get('user'))) {
-      errors.user = 'Invalid user'
+    if (!data.get('username')) {
+      errors.username = 'Required'
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(data.get('username'))) {
+      errors.username = 'Invalid user'
     }
     if (!data.get('password')) {
       errors.password = 'Required'
@@ -50,8 +50,8 @@ const form = (props: InjectedFormProps<{}, {}> & WithStyles & WithNamespaces) =>
     return (
         <form onSubmit={handleSubmit} className={props.classes.form}>
             <div>
-                <label htmlFor="user">{t('login-form-user')}</label>
-                <Field name="user" component={renderField} type="email" placeholder="User" />
+                <label htmlFor="username">{t('login-form-user')}</label>
+                <Field name="username" component={renderField} type="email" placeholder="Username" />
             </div>
             <div>
                 <label htmlFor="password">{t('login-form-password')}</label>

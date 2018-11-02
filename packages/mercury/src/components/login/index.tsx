@@ -7,7 +7,7 @@ import { WithStyles, StyleRules } from "@material-ui/core/styles"
 import injectSheet from 'react-jss'
 import { LoginForm } from './LoginForm'
 import { connect } from 'react-redux'
-import { LOGIN, LoginData } from './Actions'
+import { LoginData, LOGIN} from './Actions'
 
 const styles: StyleRules = {
     content: {
@@ -37,7 +37,7 @@ class LoginView extends React.Component<LoginProps> {
         return (
             <section className={this.props.classes.content}>
                 <Helmet>
-                    <title>{this.props.t('login')}</title>
+                    <title>{this.props.t('login-title')}</title>
                 </Helmet>
                 <h1>{this.props.t('login-title')}</h1>
                 <LoginForm onSubmit={this.onSubmit as any}/>
@@ -52,7 +52,7 @@ const mapStateToProps = () => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        submit: (data: LoginData) => dispatch(LOGIN(data))
+        submit: (loginData: LoginData) => dispatch(LOGIN(loginData))
     }
 }
 

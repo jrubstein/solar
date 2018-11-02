@@ -1,7 +1,7 @@
 import 'reflect-metadata'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Navigation, Button, theme } from '@celestial/comet'
+import { Navigation, Button, theme } from 'celestial/comet'
 import {
   MuiThemeProvider,
 } from '@material-ui/core/styles';

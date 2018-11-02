@@ -10,7 +10,7 @@
     "node": "<=10"
   },
   "scripts": {
-    "build": "../../node_modules/typescript/bin/tsc",
+    "build": "../../node_modules/typescript/bin/tsc --p ../",
     "build:watch": "yarn build -w",
     "start": "nodemon ./dist/src/server.js",
     "test": "jest",
@@ -48,8 +48,7 @@
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",
     "redux-form": "^7.4.2",
-    "redux-freeze": "^0.1.7",
-    "redux-thunk": "^2.3.0",
+    "redux-saga": "^0.16.2",
     "reflect-metadata": "^0.1.12"
   },
   "devDependencies": {
@@ -71,10 +70,10 @@
     "@types/react-router-dom": "^4.3.1",
     "@types/redux": "^3.6.0",
     "@types/redux-form": "^7.4.10",
-    "@types/redux-thunk": "^2.1.0",
+    "@types/redux-saga": "^0.10.5",
     "@types/reflect-metadata": "^0.1.0",
     "jest": "^23.6.0",
-    "nodemon": "^1.18.4",
+    "nodemon": "^1.18.5",
     "ts-jest": "^23.10.4"
   }
 }

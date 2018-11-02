@@ -22,10 +22,11 @@ $bundles
 context(class {
     getConfig() {
         return FuseBox.init({
-            homeDir: "src",
+            homeDir: "..",
             output: "dist/assets/$name.js",
-            target : "browser@es5",
+            target : "browser@es6",
             hash: this.isProduction,
+            log: !this.isProduction,
             sourceMaps: !this.isProduction,
             useTypescriptCompiler : true,
             plugins: [
@@ -35,30 +36,28 @@ context(class {
                     treeshake: true,
                     extendServerImport: true,
                 })
-            ]
+            ],
+            alias: {
+                'celestial/comet': "~/comet",
+            }
         })
     }
     createVendor(fuse) {
         const vendor = fuse.bundle("vendor")
-        if (!this.isProduction) {
-            vendor.watch()
-            vendor.hmr()
-        }
-        vendor.instructions("~ application/Bootstrap.tsx")
+        vendor.instructions("~ mercury/src/application/Bootstrap.tsx")
         return vendor
     }
     createBundle(fuse) {
         const app = fuse.bundle("app");
         if (!this.isProduction) {
-            app.watch()
-            app.hmr()
+            // app.hmr().watch()
         }
-        app.instructions("!> [application/Bootstrap.tsx]");
+        app.instructions("!> [mercury/src/application/Bootstrap.tsx]");
         return app;
     }
 });
 
-task("clean", () => src("dist/assets").clean("dist/assets").exec() )
+task("clean", () => src("mercury/dist/assets").clean("mercury/dist/assets").exec() )
 
 task("default", ["clean"], async context => {
     const fuse = context.getConfig();

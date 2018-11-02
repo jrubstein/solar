@@ -20,10 +20,16 @@ export class I18NResources implements PublicResources {
         const lang = context.params.lang
         const translations: any = {
             en: {
-                title: 'Title'
+                title: 'Title',
+                'login-title': 'Login',
+                'login-form-user': 'User',
+                'login-form-password': 'Password'
             },
             es: {
-                title: 'Título'
+                title: 'Título',
+                'login-title': 'Iniciar sesión',
+                'login-form-user': 'Usuario',
+                'login-form-password': 'Contraseña'
             }
         }
         context.body = translations[lang] || translations.en

@@ -15,7 +15,7 @@ export class Application extends React.Component {
         return (
         <React.Fragment>
              <Helmet>
-                <title>This is mercury</title>
+                <title>This is mercury 22</title>
             </Helmet>
             <Switch>
                 <Route path="/login" component={LoginComponent} />
