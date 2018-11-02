@@ -25,10 +25,10 @@ export class Application {
     }
 
     public async bootstrap() {
+        this.app.use(bodyParser())
         this.app.use(cors({
             allowMethods: '*'
         }))
-        this.app.use(bodyParser())
         this.publicResources.forEach(resource => this.app.use(resource.routes))
         
         this.app.use(JWTMiddleware(this.configuration.JWT_SECRET))
