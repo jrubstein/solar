@@ -1,10 +1,11 @@
-import { createStore, applyMiddleware, compose, combineReducers } from "redux"
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
 import { reducer as form } from 'redux-form/immutable'
-import { I18NReducer } from '../components/i18n/Reducer' 
+import { I18NReducer } from '../services/i18n/Reducer' 
 import createSagaMiddleware from 'redux-saga'
 import loginSaga from '../components/Login/Sagas'
-import { AuthReducer } from "../components/auth/Reducer"
-import { LoginReducer } from "../components/login/Reducer";
+import { AuthReducer } from '../services/auth/Reducer'
+import { LoginReducer } from '../components/login/Reducer'
+import { RouterReducer } from '../services/router/Reducer'
 
 // add the middlewares
 const sagaMiddleware = createSagaMiddleware()
@@ -19,7 +20,8 @@ const rootStore = combineReducers({
     form,
     i18n: I18NReducer,
     auth: AuthReducer,
-    login: LoginReducer
+    login: LoginReducer,
+    router: RouterReducer
 })
 
 // create the store

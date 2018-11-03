@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import {Map} from 'immutable'
 import { withNamespaces, WithNamespaces } from 'react-i18next'
-import { CHANGE_LANGUAGE } from '../i18n/Actions'
+import { CHANGE_LANGUAGE } from '../../services/i18n/Actions';
 
 interface LoginProps extends WithNamespaces {
     language: string,

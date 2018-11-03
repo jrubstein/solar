@@ -3,6 +3,7 @@ import React from 'react'
 import { Switch, Route, Redirect, Link } from 'react-router-dom'
 import Loadable from 'react-loadable'
 import { Helmet } from 'react-helmet'
+import { ProtectedRoute } from '../services/router/ProtectedRoute';
 
 const LoginComponent = Loadable({
     loader: () => import('../components/login'),
@@ -19,6 +20,7 @@ export class Application extends React.Component {
             </Helmet>
             <Switch>
                 <Route path="/login" component={LoginComponent} />
+                <ProtectedRoute path="/dashboard" component={() => <div>dashboard</div>} />
                 <Redirect from="*" to="/login" />
             </Switch>
             <ul>
