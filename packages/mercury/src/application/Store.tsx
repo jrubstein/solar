@@ -8,6 +8,7 @@ import { LoginReducer, LoginReducerType } from '../components/login/Reducer'
 import { RouterReducer, RouterReducerType } from '../services/router/Reducer'
 import { FormStateMap } from 'redux-form';
 import { AuthorizationService } from '../services/auth/AuthorizationService';
+import userSaga from '../services/user/Sagas';
 
 export type StoreType = {
     i18n: I18NReducerType,
@@ -54,6 +55,7 @@ export const initStore = (authorizationService: AuthorizationService) => {
     
     // Sagas
     sagaMiddleware.run(loginSaga)
+    sagaMiddleware.run(userSaga)
 
     return store
 }

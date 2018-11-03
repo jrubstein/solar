@@ -18,6 +18,7 @@ import Tests from '../components/tests'
 import { RouterService } from '../services/router/RouterService'
 import { AuthorizationService } from '../services/auth/AuthorizationService';
 import { LocalStoragePersistanceService, PersistanceService } from '../services/persist/LocalStorage';
+import { UserAPI } from '../services/API/UserAPI';
 
 const jss = create(jssPreset())
 // Create services
@@ -32,6 +33,11 @@ i18nService.load()
 i18nService.subscribe(store)
 routerService.subscribe(store)
 authorizationService.subscribe(store)
+
+// Services
+// TODO: Find a clean way to send the API to sagas
+export const userAPI = new UserAPI(authorizationService)
+
 
 ReactDOM.render(
     <JssProvider jss={jss}>

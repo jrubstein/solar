@@ -67,7 +67,7 @@ export class AuthenticationResources implements PublicResources {
     private generateToken({password, ...user}: User) {
         return jsonwebtoken.sign({
             data: user,
-            exp: Math.floor(Date.now() / 1000) - (60 * 60) // 60 seconds * 60 minutes = 1 hour
+            exp: Math.floor(Date.now() / 1000) + (60 * 60) // 60 seconds * 60 minutes = 1 hour
           }, this.configuration.JWT_SECRET)
     }
 }

@@ -4,13 +4,13 @@ import jsonwebtoken from 'jsonwebtoken'
 const verifyToken = (token: string, secret: string) => {
   try {
     return jsonwebtoken.verify(token, secret)
-  } catch(_) {
+  } catch(e) {
     return null
   }
 }
 
 const getToken = (context: Koa.Context) => {
-  if (context.header && context.header.authorization) {
+  if (!context.header || !context.header.authorization) {
     context.throw(401, 'No authorization token')
   }
 
@@ -29,11 +29,11 @@ const getToken = (context: Koa.Context) => {
 export const AuthenticationMiddleware = (secret: string) =>
   async (context: Koa.Context, next: () => Promise<any>) => {
     const token = getToken(context)
-    const decodedToken = verifyToken(token, secret)
+    const decodedToken: any = verifyToken(token, secret)
     if (!decodedToken) {
       context.throw(401, 'Invalid token')
     }
 
-    context.state.user = decodedToken
+    context.state.user = decodedToken.data
     return next()
   }

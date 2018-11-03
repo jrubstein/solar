@@ -20,6 +20,11 @@ const LoginComponent = Loadable({
     loading: () => <div></div>
 })
 
+const DashbordComponent = Loadable({
+    loader: () => import('../components/dashboard'),
+    loading: () => <div></div>
+})
+
 
 export class Application extends React.Component {
     render() {
@@ -30,7 +35,7 @@ export class Application extends React.Component {
             </Helmet>
             <Switch>
                 <Route path="/login" component={LoginComponent} />
-                <ProtectedRoute path="/dashboard" component={() => <div>dashboard</div>} />
+                <ProtectedRoute path="/dashboard" component={DashbordComponent} />
                 <Redirect from="*" to="/login" />
             </Switch>
             <ul>
