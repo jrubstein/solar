@@ -2,11 +2,16 @@ import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 
-const protectedRouteHoc = ({ component: Component, authToken, ...rest }) => (
-    <Route {...rest} render={(props) => (
-      !!authToken ? <Component {...props} /> : <Redirect to='/login' />
-    )} />
-)
+const protectedRouteHoc = ({ component: Component, authToken, ...rest }) => {
+    if (!authToken) {
+        // TODO: save rest.location
+        <Redirect to='/login' />
+    }
+
+    return (
+        <Route {...rest} render={(props) => (<Component {...props} />)} />
+    )
+}
 
 const mapStateToProps = ({auth: {authToken}}) => {
     return {
