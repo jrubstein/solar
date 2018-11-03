@@ -3,7 +3,7 @@ import bodyParser from 'koa-bodyparser'
 import { injectable, inject, multiInject } from 'inversify'
 import { ApplicationConfigurationType } from './Configuration'
 import { TYPES } from '../inversify.types'
-import { JWTMiddleware } from '../components/authentication/AuthenticationMiddleware'
+import { AuthenticationMiddleware } from '../components/authentication/AuthenticationMiddleware'
 import { PublicResources } from '../Utils/Resources'
 import cors from '@koa/cors'
 import { Logger } from 'winston'
@@ -31,7 +31,7 @@ export class Application {
         }))
         this.publicResources.forEach(resource => this.app.use(resource.routes))
         
-        this.app.use(JWTMiddleware(this.configuration.JWT_SECRET))
+        this.app.use(AuthenticationMiddleware(this.configuration.JWT_SECRET))
         // this.protectedResources.forEach(resource => this.app.use(resource.routes))
         this.app.use(context => context.body = '404')
     }

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 const protectedRouteHoc = ({ component: Component, authToken, ...rest }) => {
     if (!authToken) {
         // TODO: save rest.location
-        <Redirect to='/login' />
+        return <Redirect to='/login' />
     }
 
     return (

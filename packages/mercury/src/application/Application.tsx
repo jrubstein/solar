@@ -5,6 +5,16 @@ import Loadable from 'react-loadable'
 import { Helmet } from 'react-helmet'
 import { ProtectedRoute } from '../services/router/ProtectedRoute';
 
+declare global {
+    interface Window {
+        localStorage: {
+            getItem: (item: string) => string
+            setItem: (item: string, value: any) => void
+            removeItem: (item: string) => void
+        }
+     }
+}
+
 const LoginComponent = Loadable({
     loader: () => import('../components/login'),
     loading: () => <div></div>

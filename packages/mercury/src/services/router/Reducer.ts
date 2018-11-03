@@ -1,5 +1,9 @@
 import { PUSH_ACTION_TYPE } from './Actions'
 
+export type RouterReducerType = {
+  pushUrl: string
+}
+
 const initialState = {}
 
 export const RouterReducer =  (state = initialState, {type, url}: any ) => {

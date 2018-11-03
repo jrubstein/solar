@@ -8,7 +8,7 @@ import {
 import { Router } from 'react-router-dom'
 import { Application } from './Application'
 import { Provider } from 'react-redux'
-import { store } from './Store'
+import { initStore } from './Store'
 import {JssProvider} from 'react-jss'
 import { create } from 'jss';
 import { jssPreset } from '@material-ui/core/styles'
@@ -16,13 +16,22 @@ import { I18NService } from '../services/i18n/I18NService'
 import { I18nextProvider } from 'react-i18next'
 import Tests from '../components/tests'
 import { RouterService } from '../services/router/RouterService'
+import { AuthorizationService } from '../services/auth/AuthorizationService';
+import { LocalStoragePersistanceService, PersistanceService } from '../services/persist/LocalStorage';
 
 const jss = create(jssPreset())
+// Create services
+const persistanceService: PersistanceService = new LocalStoragePersistanceService()
 const i18nService: I18NService = new I18NService()
 const routerService: RouterService = new RouterService()
+const authorizationService: AuthorizationService = new AuthorizationService(persistanceService)
+const store = initStore(authorizationService)
+
+// subscribe
 i18nService.load()
 i18nService.subscribe(store)
 routerService.subscribe(store)
+authorizationService.subscribe(store)
 
 ReactDOM.render(
     <JssProvider jss={jss}>
@@ -43,5 +52,3 @@ ReactDOM.render(
     </JssProvider>,
     document.getElementById('main-container')
 )
-
-
