@@ -21,10 +21,9 @@ export const LOGIN = (loginData: LoginData): LoginAction => {
     }
 }
 
-export const LOGIN_SUCESSFUL = (user: any, token: string) => {
-    console.log(user, token)
+export const LOGIN_SUCESSFUL = (token: string) => {
     return {
-        user, token, type: LOGIN_SUCESSFUL_ACTION_TYPE,
+        token, type: LOGIN_SUCESSFUL_ACTION_TYPE,
     }
 }
 

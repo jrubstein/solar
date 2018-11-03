@@ -15,11 +15,15 @@ const styles: StyleRules = {
         'flex-direction': 'column',
         'justify-content': 'center',
         'text-align': 'center'
+    },
+    error: {
+        color: 'red'
     }
 }
 
 interface LoginProps extends WithNamespaces, WithStyles {
     submit: (data: LoginData) => void
+    authError?: string
 }
 
 class LoginView extends React.Component<LoginProps> {
@@ -34,20 +38,24 @@ class LoginView extends React.Component<LoginProps> {
     }
 
     render() {
+        const {authError, classes, t} = this.props
         return (
-            <section className={this.props.classes.content}>
+            <section className={classes.content}>
                 <Helmet>
-                    <title>{this.props.t('login-title')}</title>
+                    <title>{t('login-title')}</title>
                 </Helmet>
-                <h1>{this.props.t('login-title')}</h1>
+                <h1>{t('login-title')}</h1>
+                {authError && <span className={classes.error}>{authError}</span>}
                 <LoginForm onSubmit={this.onSubmit as any}/>
             </section>
         )
     }
 }
 
-const mapStateToProps = () => {
-    return {}
+const mapStateToProps = ({login: {authError}}) => {
+    return {
+        authError
+    }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => {

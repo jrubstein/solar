@@ -5,7 +5,7 @@ import Loadable from 'react-loadable'
 import { Helmet } from 'react-helmet'
 
 const LoginComponent = Loadable({
-    loader: () => import('../components/Login'),
+    loader: () => import('../components/login'),
     loading: () => <div></div>
 })
 

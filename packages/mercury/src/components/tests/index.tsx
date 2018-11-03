@@ -34,8 +34,6 @@ class Login extends React.Component<LoginProps> {
                 <span>{this.props.t('title')}</span>
                 <button disabled={language === 'en'} onClick={() => changeLanguage('en')}>EN</button>
                 <button disabled={language === 'es'} onClick={() => changeLanguage('es')}>ES</button>
-                {/* The typing are incorrect for / */}
-                {/* <LoginForm onSubmit={this.onSubmit as any}/> */}
             </React.Fragment>
         )
     }

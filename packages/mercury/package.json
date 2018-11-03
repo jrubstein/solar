@@ -24,6 +24,7 @@
     "@types/koa": "^2.0.46",
     "@types/koa-bodyparser": "^5.0.1",
     "@types/koa-router": "^7.0.32",
+    "axios": "^0.18.0",
     "fuse-box": "^3.5.0",
     "i18next": "^12.0.0",
     "i18next-xhr-backend": "^1.5.1",
@@ -52,6 +53,7 @@
     "reflect-metadata": "^0.1.12"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/i18next": "^11.9.3",
     "@types/i18next-xhr-backend": "^1.4.1",
     "@types/jest": "^23.3.5",

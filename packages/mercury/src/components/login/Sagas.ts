@@ -1,12 +1,13 @@
-import { put, takeLatest } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import { LOGIN_SUCESSFUL, LOGIN_FAILED, LOGIN_ACTION_TYPE, LoginAction } from './Actions'
+import { loginUser } from './LoginAPI'
 
-function* login({ data } : LoginAction) {
+function* login({ data: {username, password} } : LoginAction) {
     try {
-    //    const user = yield call(Api.fetchUser, action.payload.userId);
-       yield put(LOGIN_SUCESSFUL({data}, 'token'))
-    } catch (e) {
-       yield put(LOGIN_FAILED('error'))
+        const {data: {token}} = yield call(loginUser, [username, password])
+        yield put(LOGIN_SUCESSFUL(token))
+    } catch ({response}) {
+        yield put(LOGIN_FAILED(response.data))
     }
 }
 
