@@ -6,7 +6,7 @@ function* getLoggedUser() {
   try {
     const gateway: Gateway = yield getContext('gateway')
     const response = yield call(gateway.getUserAPI().getLoggedUser())
-    console.log(response)
+    console.log(response.data)
   } catch (e) {
     console.log(e)
   }
