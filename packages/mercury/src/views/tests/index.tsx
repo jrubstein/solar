@@ -5,10 +5,12 @@ import { Dispatch } from 'redux'
 import { Map } from 'immutable'
 import { withNamespaces, WithNamespaces } from 'react-i18next'
 import { CHANGE_LANGUAGE } from '../../services/i18n/Actions'
+import { LOGOUT } from '../login/Actions'
 
 interface LoginProps extends WithNamespaces {
   language: string
   changeLanguage: (language: string) => {}
+  logout: () => void
 }
 
 // https://gist.github.com/iamtmrobinson/d4bb6e9297300b787891337fe9e07c42
@@ -19,7 +21,7 @@ class Login extends React.Component<LoginProps> {
   }
 
   public render() {
-    const { language, changeLanguage } = this.props
+    const { language, changeLanguage, logout } = this.props
     return (
       <React.Fragment>
         <Helmet>
@@ -32,6 +34,7 @@ class Login extends React.Component<LoginProps> {
         <button disabled={language === 'es'} onClick={() => changeLanguage('es')}>
           ES
         </button>
+        <button onClick={() => logout()}>logout</button>
       </React.Fragment>
     )
   }
@@ -52,6 +55,7 @@ const mapStateToProps = ({ i18n }: any) => {
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     changeLanguage: (language: string) => dispatch(CHANGE_LANGUAGE(language)),
+    logout: () => dispatch(LOGOUT()),
   }
 }
 

@@ -1,4 +1,4 @@
-import { LOGIN_SUCESSFUL_ACTION_TYPE } from '../../views/Login/Actions'
+import { LOGIN_SUCESSFUL_ACTION_TYPE, LOGOUT_ACTION_TYPE } from '../../views/Login/Actions'
 
 export type AuthReducerType = {
   authToken: string | null
@@ -12,6 +12,11 @@ export const AuthReducer = (state = initialState, action: { type: string; token:
       return {
         ...state,
         authToken: action.token,
+      }
+    case LOGOUT_ACTION_TYPE:
+      return {
+        ...state,
+        authToken: null,
       }
     default:
       return state

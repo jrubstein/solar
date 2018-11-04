@@ -18,6 +18,7 @@ import { AuthorizationService } from '../services/auth/AuthorizationService'
 import { LocalStoragePersistanceService, PersistanceService } from '../services/persist/LocalStorage'
 import { Gateway, createGateway } from '../services/gateway'
 import { Environment } from './Environment'
+import { GET_LOGGED_USER } from '../services/user/Actions'
 
 const jss = create(jssPreset())
 // Loading environment
@@ -38,6 +39,11 @@ i18nService.load()
 i18nService.subscribe(store)
 routerService.subscribe(store)
 authorizationService.subscribe(store)
+
+// If there is a valid token and the path is not public, we load the current user
+if (store.getState().auth.authToken && window.location.pathname !== '/login') {
+  store.dispatch(GET_LOGGED_USER())
+}
 
 window.addEventListener('beforeunload', event => {
   persistanceService.persistState(store.getState())
