@@ -5,7 +5,7 @@ import { withNamespaces, WithNamespaces } from 'react-i18next'
 import { Dispatch } from 'redux'
 import { WithStyles, StyleRules } from '@material-ui/core/styles'
 import injectSheet from 'react-jss'
-import { LoginForm } from './LoginForm'
+import { LoginForm } from './components/LoginForm'
 import { connect } from 'react-redux'
 import { LoginData, LOGIN } from './Actions'
 
@@ -32,11 +32,7 @@ class LoginView extends React.Component<LoginProps> {
     this.onSubmit = this.onSubmit.bind(this)
   }
 
-  private onSubmit(values: Map<string, string>) {
-    this.props.submit(values.toObject() as LoginData)
-  }
-
-  render() {
+  public render() {
     const { authError, classes, t } = this.props
     return (
       <section className={classes.content}>
@@ -48,6 +44,10 @@ class LoginView extends React.Component<LoginProps> {
         <LoginForm onSubmit={this.onSubmit as any} />
       </section>
     )
+  }
+
+  private onSubmit(values: Map<string, string>) {
+    this.props.submit(values.toObject() as LoginData)
   }
 }
 

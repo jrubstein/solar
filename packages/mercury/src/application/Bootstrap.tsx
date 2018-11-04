@@ -12,27 +12,33 @@ import { create } from 'jss'
 import { jssPreset } from '@material-ui/core/styles'
 import { I18NService } from '../services/i18n/I18NService'
 import { I18nextProvider } from 'react-i18next'
-import Tests from '../components/tests'
+import Tests from '../views/tests'
 import { RouterService } from '../services/router/RouterService'
 import { AuthorizationService } from '../services/auth/AuthorizationService'
 import { LocalStoragePersistanceService, PersistanceService } from '../services/persist/LocalStorage'
-import { Gateway, createGateway } from '../services/gateway';
+import { Gateway, createGateway } from '../services/gateway'
 
 const jss = create(jssPreset())
 // Create services
 const persistanceService: PersistanceService = new LocalStoragePersistanceService()
 const i18nService: I18NService = new I18NService()
 const routerService: RouterService = new RouterService()
-const authorizationService: AuthorizationService = new AuthorizationService(persistanceService)
+const authorizationService: AuthorizationService = new AuthorizationService()
 
 const gateway: Gateway = createGateway(authorizationService)
-const store = initStore(gateway, authorizationService)
+const store = initStore(gateway, persistanceService)
 
 // subscribe
 i18nService.load()
 i18nService.subscribe(store)
 routerService.subscribe(store)
 authorizationService.subscribe(store)
+
+window.addEventListener('beforeunload', event => {
+  persistanceService.persistState(store.getState())
+  // Chrome requires returnValue to be set.
+  event.returnValue = ''
+})
 
 ReactDOM.render(
   <JssProvider jss={jss}>

@@ -11,19 +11,14 @@ interface LoginProps extends WithNamespaces {
   changeLanguage: (language: string) => {}
 }
 
-//https://gist.github.com/iamtmrobinson/d4bb6e9297300b787891337fe9e07c42
+// https://gist.github.com/iamtmrobinson/d4bb6e9297300b787891337fe9e07c42
 class Login extends React.Component<LoginProps> {
   constructor(props: LoginProps) {
     super(props)
     this.onSubmit = this.onSubmit.bind(this)
   }
 
-  private onSubmit(values: Map<FormData, {}>) {
-    console.log(values.toObject())
-    // https://redux-form.com/7.4.2/docs/faq/howtoclear.md/
-  }
-
-  render() {
+  public render() {
     const { language, changeLanguage } = this.props
     return (
       <React.Fragment>
@@ -39,6 +34,12 @@ class Login extends React.Component<LoginProps> {
         </button>
       </React.Fragment>
     )
+  }
+
+  private onSubmit(values: Map<FormData, {}>) {
+    // tslint:disable-next-line:no-console
+    console.log(values.toObject())
+    // https://redux-form.com/7.4.2/docs/faq/howtoclear.md/
   }
 }
 

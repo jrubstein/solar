@@ -23,7 +23,7 @@ class DashboardView extends React.Component<DashboardProps> {
     super(props)
   }
 
-  render() {
+  public render() {
     const { classes, t, requestLoggedUser } = this.props
     return (
       <React.Fragment>

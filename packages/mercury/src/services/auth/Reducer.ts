@@ -1,4 +1,4 @@
-import { LOGIN_SUCESSFUL_ACTION_TYPE } from '../../components/Login/Actions'
+import { LOGIN_SUCESSFUL_ACTION_TYPE } from '../../views/Login/Actions'
 
 export type AuthReducerType = {
   authToken: string | null

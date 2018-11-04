@@ -1,12 +1,12 @@
 import { PUSH_ACTION_TYPE } from './Actions'
 
 export type RouterReducerType = {
-  pushUrl: string
+  pushUrl?: string
 }
 
 const initialState = {}
 
-export const RouterReducer = (state = initialState, { type, url }: any) => {
+export const RouterReducer = (state = initialState, { type, url }: any): RouterReducerType  => {
   switch (type) {
     case PUSH_ACTION_TYPE:
       return {

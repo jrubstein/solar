@@ -16,17 +16,17 @@ declare global {
 }
 
 const LoginComponent = Loadable({
-  loader: () => import('../components/login'),
+  loader: () => import('../views/login'),
   loading: () => <div />,
 })
 
 const DashbordComponent = Loadable({
-  loader: () => import('../components/dashboard'),
+  loader: () => import('../views/dashboard'),
   loading: () => <div />,
 })
 
 export class Application extends React.Component {
-  render() {
+  public render() {
     return (
       <React.Fragment>
         <Helmet>
