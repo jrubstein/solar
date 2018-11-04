@@ -28,7 +28,11 @@ const getInitialState = (authorizationService: AuthorizationService): Partial<St
 
 export const initStore = (authorizationService: AuthorizationService) => {
     // add the middlewares
-    const sagaMiddleware = createSagaMiddleware()
+    const sagaMiddleware = createSagaMiddleware({
+        context: {
+            authorizationService
+        }
+    })
     let middlewares = [sagaMiddleware]
     const windowIfDefined = typeof window === 'undefined' ? null : window as any
     const composeEnhancers = windowIfDefined.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

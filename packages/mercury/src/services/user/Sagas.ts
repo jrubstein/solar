@@ -1,20 +1,22 @@
-import { call, takeLatest } from 'redux-saga/effects'
-import { GET_LOGGED_USER_ACTION_TYPE } from './Actions';
-import { userAPI } from '../../application/Bootstrap';
+import { call, takeLatest, getContext } from "redux-saga/effects";
+import { GET_LOGGED_USER_ACTION_TYPE } from "./Actions";
+import { userAPI } from "../../application/Bootstrap";
 
 function* getLoggedUser() {
-    try {
-        const response = yield call(userAPI.getLoggedUser)
-        console.log(response)
-    } catch(e) {
-        console.log(e)  
-    }
+  try {
+    const context = yield getContext("authorizationService");
+    console.log(context);
+    const response = yield call(userAPI.getLoggedUser);
+    console.log(response);
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 function* userSaga() {
-    // Typings are not good enough. String should be valid but the types
-    // do not show it
-    yield takeLatest(GET_LOGGED_USER_ACTION_TYPE as any, getLoggedUser);
+  // Typings are not good enough. String should be valid but the types
+  // do not show it
+  yield takeLatest(GET_LOGGED_USER_ACTION_TYPE as any, getLoggedUser);
 }
 
-export default userSaga
+export default userSaga;
