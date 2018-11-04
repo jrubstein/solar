@@ -11,7 +11,7 @@ declare global {
       getItem: (item: string) => string
       setItem: (item: string, value: any) => void
       removeItem: (item: string) => void
-    }
+    },
   }
 }
 

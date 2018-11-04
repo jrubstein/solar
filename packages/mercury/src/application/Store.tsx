@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
+import { createStore, applyMiddleware, compose, combineReducers, Store } from 'redux'
 import { reducer as form } from 'redux-form/immutable'
 import { I18NReducer, I18NReducerType } from '../services/i18n/Reducer'
 import createSagaMiddleware, { SagaMiddleware } from 'redux-saga'
@@ -7,11 +7,11 @@ import { AuthReducer, AuthReducerType } from '../services/auth/Reducer'
 import { LoginReducer, LoginReducerType } from '../components/login/Reducer'
 import { RouterReducer, RouterReducerType } from '../services/router/Reducer'
 import { FormStateMap } from 'redux-form'
-import { AuthorizationService } from '../services/auth/AuthorizationService'
 import userSaga from '../services/user/Sagas'
 import { Gateway } from '../services/gateway'
+import { PersistanceService } from '../services/persist/LocalStorage';
 
-export type StoreType = {
+export type State = {
   i18n: I18NReducerType
   auth: AuthReducerType
   login: LoginReducerType
@@ -19,12 +19,8 @@ export type StoreType = {
   form: FormStateMap
 }
 
-const getInitialState = (authorizationService: AuthorizationService): Partial<StoreType> => {
-  return {
-    auth: {
-      authToken: authorizationService.getAuthToken(),
-    },
-  }
+const getInitialState = (persistanceService: PersistanceService): Partial<State> => {
+  return persistanceService.getSavedState() || {}
 }
 
 const configureSagas = (sagaMiddleware: SagaMiddleware<any>) => {
@@ -33,7 +29,7 @@ const configureSagas = (sagaMiddleware: SagaMiddleware<any>) => {
     sagaMiddleware.run(userSaga)
 }
 
-export const initStore = (gateway: Gateway, authorizationService: AuthorizationService) => {
+export const initStore = (gateway: Gateway, persistanceService: PersistanceService): Store<State> => {
   // add the middlewares
   const sagaMiddleware = createSagaMiddleware({
     context: {
@@ -56,7 +52,7 @@ export const initStore = (gateway: Gateway, authorizationService: AuthorizationS
   })
 
   // create the store
-  const store = createStore(rootStore, getInitialState(authorizationService), composeEnhancers(middleware))
+  const store = createStore(rootStore, getInitialState(persistanceService), composeEnhancers(middleware))
   configureSagas(sagaMiddleware)
   return store
 }

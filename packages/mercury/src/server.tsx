@@ -26,7 +26,11 @@ import serve from 'koa-static'
     if (context.method !== 'HEAD' && context.method !== 'GET') {
       return
     }
-    await send(context, 'index.html', { ...options, root: rootPath })
+    try {
+      await send(context, 'index.html', { ...options, root: rootPath })
+    } catch (e) {
+      console.log(e.message)
+    }
   })
 
   app.listen(ApplicationConfiguration.PORT, () => {

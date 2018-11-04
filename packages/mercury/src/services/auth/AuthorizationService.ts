@@ -1,16 +1,11 @@
 import { Store, Unsubscribe } from 'redux'
-import { PersistanceService } from '../persist/LocalStorage'
 
 export class AuthorizationService {
-  private readonly TOKEN_ITEM_NAME = 'authToken'
   private unsubscribeHandler!: Unsubscribe
   private currentToken: { authToken: string }
 
-  constructor(private persistanceService: PersistanceService) {
-    this.currentToken = this.persistanceService.getItem(this.TOKEN_ITEM_NAME) || { authToken: null }
-  }
-
   public subscribe(store: Store) {
+    this.currentToken = store.getState().auth || { authToken: null }
     this.unsubscribeHandler = store.subscribe(() => this.subscriptionListener(store))
   }
 
@@ -20,7 +15,6 @@ export class AuthorizationService {
     } = store.getState()
     if (authToken !== this.currentToken.authToken) {
       this.currentToken = { authToken }
-      this.persistanceService.setItem(this.TOKEN_ITEM_NAME, { authToken })
     }
   }
 

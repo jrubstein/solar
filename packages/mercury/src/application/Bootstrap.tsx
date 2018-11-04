@@ -23,16 +23,25 @@ const jss = create(jssPreset())
 const persistanceService: PersistanceService = new LocalStoragePersistanceService()
 const i18nService: I18NService = new I18NService()
 const routerService: RouterService = new RouterService()
-const authorizationService: AuthorizationService = new AuthorizationService(persistanceService)
+const authorizationService: AuthorizationService = new AuthorizationService()
 
 const gateway: Gateway = createGateway(authorizationService)
-const store = initStore(gateway, authorizationService)
+const store = initStore(gateway, persistanceService)
 
 // subscribe
 i18nService.load()
 i18nService.subscribe(store)
 routerService.subscribe(store)
 authorizationService.subscribe(store)
+
+
+window.addEventListener("beforeunload", (event) => {
+  persistanceService.persistState(store.getState())
+  // Chrome requires returnValue to be set.
+  event.returnValue = '';
+});
+
+
 
 ReactDOM.render(
   <JssProvider jss={jss}>
