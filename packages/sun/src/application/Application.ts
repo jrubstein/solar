@@ -11,34 +11,36 @@ import { LoggerFactory } from '../Utils/LoggerFactory'
 
 @injectable()
 export class Application {
-    private app: Koa
-    private readonly LOGGER: Logger
+  private app: Koa
+  private readonly LOGGER: Logger
 
-    constructor(
-        @inject(TYPES.ApplicationConfiguration) private configuration: ApplicationConfigurationType,
-        @inject(TYPES.LoggerFactory) loggerFactory : LoggerFactory,
-        @multiInject(TYPES.PublicResources) private publicResources: PublicResources[],
-        @multiInject(TYPES.ProtectedResources) private protectedResources: ProtectedResources[],
-    ) {
-        this.app = new Koa()
-        this.LOGGER = loggerFactory.create('Application')
-    }
+  constructor(
+    @inject(TYPES.ApplicationConfiguration) private configuration: ApplicationConfigurationType,
+    @inject(TYPES.LoggerFactory) loggerFactory: LoggerFactory,
+    @multiInject(TYPES.PublicResources) private publicResources: PublicResources[],
+    @multiInject(TYPES.ProtectedResources) private protectedResources: ProtectedResources[]
+  ) {
+    this.app = new Koa()
+    this.LOGGER = loggerFactory.create('Application')
+  }
 
-    public async bootstrap() {
-        this.app.use(bodyParser())
-        this.app.use(cors({
-            allowMethods: '*'
-        }))
-        this.publicResources.forEach(resource => this.app.use(resource.routes))
-        
-        this.app.use(AuthenticationMiddleware(this.configuration.JWT_SECRET))
-        this.protectedResources.forEach(resource => this.app.use(resource.routes))
-        this.app.use(context => context.body = '404')
-    }
-    
-    public listen () {
-        this.app.listen(this.configuration.PORT, () => {
-            this.LOGGER.info(`server is up on port ${this.configuration.PORT}`)
-        })
-    }
+  public async bootstrap() {
+    this.app.use(bodyParser())
+    this.app.use(
+      cors({
+        allowMethods: '*',
+      })
+    )
+    this.publicResources.forEach(resource => this.app.use(resource.routes))
+
+    this.app.use(AuthenticationMiddleware(this.configuration.JWT_SECRET))
+    this.protectedResources.forEach(resource => this.app.use(resource.routes))
+    this.app.use(context => (context.body = '404'))
+  }
+
+  public listen() {
+    this.app.listen(this.configuration.PORT, () => {
+      this.LOGGER.info(`server is up on port ${this.configuration.PORT}`)
+    })
+  }
 }

@@ -11,12 +11,12 @@ export class I18NService {
     this.language = 'en'
     this.i18n = i18next.createInstance()
   }
-  
+
   public updateLanguage(language: string) {
     this.language = language
     this.i18n.changeLanguage(this.language)
   }
-  
+
   public subscribe(store: Store) {
     this.unsubscribeHandler = store.subscribe(() => this.subscriptionListener(store))
   }
@@ -33,29 +33,25 @@ export class I18NService {
   }
 
   public load() {
-    this.i18n
-      .use(XHR)
-      .init({
-          debug: true,
-          lng: this.language,
-          fallbackLng: 'en',
-          backend: {
-            loadPath: 'http://localhost:3000/i18n/{{lng}}',
-          },
-          react: {
-            wait: true,
-            bindI18n: 'languageChanged loaded',
-            bindStore: 'added removed',
-          }
-      })
+    this.i18n.use(XHR).init({
+      debug: true,
+      lng: this.language,
+      fallbackLng: 'en',
+      backend: {
+        loadPath: 'http://localhost:3000/i18n/{{lng}}',
+      },
+      react: {
+        wait: true,
+        bindI18n: 'languageChanged loaded',
+        bindStore: 'added removed',
+      },
+    })
   }
 
   private subscriptionListener(store: Store) {
-    const {i18n} = store.getState()
+    const { i18n } = store.getState()
     if (this.language !== i18n.language) {
       this.updateLanguage(i18n.language)
     }
   }
 }
-
-

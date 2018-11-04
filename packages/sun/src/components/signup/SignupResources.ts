@@ -1,21 +1,21 @@
-import Router from "koa-router";
-import Koa from "koa";
-import bcrypt from "bcrypt";
-import { PublicResources } from "../../Utils/Resources";
-import { injectable, inject } from "inversify";
-import { Logger } from "winston";
-import { LoggerFactory } from "../../Utils/LoggerFactory";
-import { TYPES } from "../../inversify.types";
-import { bodyValidationMiddleware } from "../../Utils/ValidationMiddleware";
-import { registrationSchema } from "./SignupSchema";
+import Router from 'koa-router'
+import Koa from 'koa'
+import bcrypt from 'bcrypt'
+import { PublicResources } from '../../Utils/Resources'
+import { injectable, inject } from 'inversify'
+import { Logger } from 'winston'
+import { LoggerFactory } from '../../Utils/LoggerFactory'
+import { TYPES } from '../../inversify.types'
+import { bodyValidationMiddleware } from '../../Utils/ValidationMiddleware'
+import { registrationSchema } from './SignupSchema'
 
 export type User = {
-  username: string;
-  password: string;
-  name: string;
-};
+  username: string
+  password: string
+  name: string
+}
 
-export const users: User[] = [];
+export const users: User[] = []
 
 /**
  *  Test:
@@ -23,38 +23,34 @@ export const users: User[] = [];
  */
 @injectable()
 export class SignupResources implements PublicResources {
-  private router: Router;
-  private readonly LOGGER: Logger;
+  private router: Router
+  private readonly LOGGER: Logger
 
   constructor(@inject(TYPES.LoggerFactory) loggerFactory: LoggerFactory) {
-    this.router = new Router({ prefix: "/signup" });
-    this.router.post(
-      "/register",
-      bodyValidationMiddleware(registrationSchema),
-      this.register.bind(this)
-    );
-    this.LOGGER = loggerFactory.create("SignupResources");
+    this.router = new Router({ prefix: '/signup' })
+    this.router.post('/register', bodyValidationMiddleware(registrationSchema), this.register.bind(this))
+    this.LOGGER = loggerFactory.create('SignupResources')
   }
 
   get routes(): Koa.Middleware {
-    return this.router.routes();
+    return this.router.routes()
   }
 
   private async register(context: Koa.Context): Promise<void> {
-    const { username, password, name }: User = context.request.body as User;
-    const encryptedPassword: string = await bcrypt.hash(password, 5);
+    const { username, password, name }: User = context.request.body as User
+    const encryptedPassword: string = await bcrypt.hash(password, 5)
     if (!!users.find(user => user.username === username)) {
-      this.LOGGER.info(`${username} is alredy taken`);
-      context.body = `${username} is alredy taken`;
-      context.status = 400;
+      this.LOGGER.info(`${username} is alredy taken`)
+      context.body = `${username} is alredy taken`
+      context.status = 400
     } else {
-      this.LOGGER.info(`${username} is now register`);
+      this.LOGGER.info(`${username} is now register`)
       users.push({
         username,
         password: encryptedPassword,
-        name
-      });
-      context.status = 200;
+        name,
+      })
+      context.status = 200
     }
   }
 }

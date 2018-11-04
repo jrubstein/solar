@@ -1,7 +1,7 @@
 import React from 'react'
 
 export class Navigation extends React.Component {
-    render() {
-        return <nav>Navigation Yat!</nav>
-    }
+  render() {
+    return <nav>Navigation Yat!</nav>
+  }
 }

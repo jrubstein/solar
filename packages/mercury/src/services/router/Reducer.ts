@@ -6,14 +6,14 @@ export type RouterReducerType = {
 
 const initialState = {}
 
-export const RouterReducer =  (state = initialState, {type, url}: any ) => {
-    switch (type) {
-      case PUSH_ACTION_TYPE:
-        return {
-            ...state,
-            pushUrl: url
-        }
-      default:
-        return state
-    }
+export const RouterReducer = (state = initialState, { type, url }: any) => {
+  switch (type) {
+    case PUSH_ACTION_TYPE:
+      return {
+        ...state,
+        pushUrl: url,
+      }
+    default:
+      return state
   }
+}

@@ -7,7 +7,7 @@ import { AuthenticationResources } from './components/authentication/Authenticat
 import { I18NResources } from './components/i18n/I18NResources'
 import { LoggerFactory } from './Utils/LoggerFactory'
 import { SignupResources } from './components/signup/SignupResources'
-import { UserResources } from './components/user/USerResources';
+import { UserResources } from './components/user/USerResources'
 
 const container: Container = new Container()
 container.bind(TYPES.Application).to(Application)

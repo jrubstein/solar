@@ -1,4 +1,4 @@
-import Joi from "joi";
+import Joi from 'joi'
 
 export const registrationSchema = Joi.object({
   username: Joi.string()
@@ -8,5 +8,5 @@ export const registrationSchema = Joi.object({
   password: Joi.string()
     .required()
     .min(8),
-  name: Joi.string().required()
-});
+  name: Joi.string().required(),
+})

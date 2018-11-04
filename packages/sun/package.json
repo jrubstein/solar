@@ -16,7 +16,8 @@
     "test": "jest",
     "test:watch": "yarn test --watch",
     "clean": "rm -rfv ./dist",
-    "circular": "madge -b ./src . --circular"
+    "circular": "madge -b ./src . --circular",
+    "prettier": "../../node_modules/prettier/bin-prettier.js --config ../../.prettierrc --write \"{,!(excluded|directories)/**/}*.{ts,json,tsx,md}\""
   },
   "dependencies": {
     "@koa/cors": "^2.2.2",

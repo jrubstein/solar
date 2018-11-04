@@ -17,7 +17,8 @@
     "test:watch": "yarn test --watch",
     "clean": "rm -rfv ./dist",
     "build:fuse": "node ./fuse.js",
-    "build:fuse:dist": "node ./fuse.js dist"
+    "build:fuse:dist": "node ./fuse.js dist",
+    "prettier": "../../node_modules/prettier/bin-prettier.js --config ../../.prettierrc --write \"{,!(excluded|directories)/**/}*.{ts,json,tsx,md}\""
   },
   "dependencies": {
     "@material-ui/core": "^3.2.0",

@@ -1,3 +1,3 @@
 import Button from '@material-ui/core/Button'
 
-export  { Button }
+export { Button }

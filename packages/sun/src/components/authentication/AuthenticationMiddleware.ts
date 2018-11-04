@@ -4,7 +4,7 @@ import jsonwebtoken from 'jsonwebtoken'
 const verifyToken = (token: string, secret: string) => {
   try {
     return jsonwebtoken.verify(token, secret)
-  } catch(e) {
+  } catch (e) {
     return null
   }
 }
@@ -14,7 +14,7 @@ const getToken = (context: Koa.Context) => {
     context.throw(401, 'No authorization token')
   }
 
-  const [scheme, token] = context.header.authorization.split(' ');
+  const [scheme, token] = context.header.authorization.split(' ')
   if (!scheme && !token) {
     context.throw(400, 'Invalid authorization token')
   }
@@ -26,14 +26,13 @@ const getToken = (context: Koa.Context) => {
   return token
 }
 
-export const AuthenticationMiddleware = (secret: string) =>
-  async (context: Koa.Context, next: () => Promise<any>) => {
-    const token = getToken(context)
-    const decodedToken: any = verifyToken(token, secret)
-    if (!decodedToken) {
-      context.throw(401, 'Invalid token')
-    }
-
-    context.state.user = decodedToken.data
-    return next()
+export const AuthenticationMiddleware = (secret: string) => async (context: Koa.Context, next: () => Promise<any>) => {
+  const token = getToken(context)
+  const decodedToken: any = verifyToken(token, secret)
+  if (!decodedToken) {
+    context.throw(401, 'Invalid token')
   }
+
+  context.state.user = decodedToken.data
+  return next()
+}

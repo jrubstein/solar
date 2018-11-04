@@ -1,4 +1,4 @@
-import Joi from "joi";
+import Joi from 'joi'
 
 export const loginSchema = Joi.object({
   username: Joi.string()
@@ -7,5 +7,5 @@ export const loginSchema = Joi.object({
     .email(),
   password: Joi.string()
     .required()
-    .min(8)
-});
+    .min(8),
+})

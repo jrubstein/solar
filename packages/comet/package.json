@@ -12,7 +12,8 @@
     "build": "yarn clean && ../../node_modules/typescript/bin/tsc",
     "build:watch": "yarn build -w",
     "test": "jest",
-    "test:watch": "yarn test --watch"
+    "test:watch": "yarn test --watch",
+    "prettier": "../../node_modules/prettier/bin-prettier.js --config ../../.prettierrc --write \"{,!(excluded|directories)/**/}*.{ts,json,tsx,md}\""
   },
   "devDependencies": {
     "@types/enzyme": "^3.1.14",

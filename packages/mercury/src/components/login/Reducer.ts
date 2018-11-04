@@ -4,16 +4,16 @@ export type LoginReducerType = {
   error?: string | null
 }
 
-const initialState: LoginReducerType = {error: null}
+const initialState: LoginReducerType = { error: null }
 
-export const LoginReducer =  (state = initialState, action: any ) => {
-    switch (action.type) {
-      case LOGIN_FAILED_ACTION_TYPE:
-        return {
-            ...state,
-            authError: action.error
-        }
-      default:
-        return state
-    }
+export const LoginReducer = (state = initialState, action: any) => {
+  switch (action.type) {
+    case LOGIN_FAILED_ACTION_TYPE:
+      return {
+        ...state,
+        authError: action.error,
+      }
+    default:
+      return state
   }
+}
