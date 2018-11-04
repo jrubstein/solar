@@ -1,5 +1,5 @@
 import 'reflect-metadata'
-import { ApplicationConfiguration } from './application/Configuration'
+import { ApplicationConfiguration } from './Configuration'
 import bodyParser from 'koa-bodyparser'
 import compress from 'koa-compress'
 import Koa from 'koa'
@@ -7,15 +7,15 @@ import path from 'path'
 import send from 'koa-send'
 import serve from 'koa-static'
 
-(async () => {
+;(async () => {
   const isProduction = process.env.NODE_ENV === 'production'
 
-  let options: {[key: string]: any} = { gzip: true, maxage: 0 }
+  let options: { [key: string]: any } = { gzip: true, maxage: 0 }
   if (isProduction) {
     options = { gzip: true, inmutable: true }
   }
 
-  const rootPath = path.join(__dirname, '..', 'assets')
+  const rootPath = path.join(__dirname, '..', '..', '..', 'assets')
   const app = new Koa()
   app.use(bodyParser())
   app.use(serve(rootPath, options))

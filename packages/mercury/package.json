@@ -2,7 +2,6 @@
   "name": "@celestial/mercury",
   "version": "0.0.1",
   "description": "First planet",
-  "main": "index.js",
   "author": "Jona",
   "license": "MIT",
   "private": true,
@@ -12,7 +11,7 @@
   "scripts": {
     "build": "../../node_modules/typescript/bin/tsc --p ../",
     "build:watch": "yarn build -w",
-    "start": "nodemon ./dist/src/server.js",
+    "start": "nodemon ./dist/mercury/src/server/server.js",
     "test": "jest",
     "test:watch": "yarn test --watch",
     "clean": "rm -rfv ./dist",

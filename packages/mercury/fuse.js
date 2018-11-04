@@ -1,23 +1,6 @@
 const { FuseBox, QuantumPlugin, WebIndexPlugin } = require("fuse-box/es6");
 const { src, task, context } = require("fuse-box/sparky");
-
-const htmlTemplate = () => `
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>Celestial bodies</title>
-</head>
-<body>
-    <noscript>Please enable your JS.</noscript>
-    <main id="main-container">
-    </main>
-</body>
-$bundles
-</html>
-`
+const { htmlTemplate } = require("./template")
 
 context(class {
     getConfig() {
@@ -30,7 +13,7 @@ context(class {
             sourceMaps: !this.isProduction,
             useTypescriptCompiler : true,
             plugins: [
-                WebIndexPlugin({path: ".", templateString: htmlTemplate(), resolve: output => `/${output.lastPrimaryOutput.filename}`,}),
+                WebIndexPlugin({path: ".", templateString: htmlTemplate(process.env), resolve: output => `/${output.lastPrimaryOutput.filename}`,}),
                 this.isProduction && QuantumPlugin({
                     uglify: true,
                     treeshake: true,

@@ -8,7 +8,7 @@ function* login({ data: { username, password } }: LoginAction) {
     const gateway: Gateway = yield getContext('gateway')
     const {
       data: { token },
-    } = yield call(gateway.getLoginAPI().loginUser, [username, password])
+    } = yield call(gateway.getLoginAPI().loginUser([username, password]))
 
     yield put(LOGIN_SUCESSFUL(token))
     yield put(PUSH('/dashboard'))

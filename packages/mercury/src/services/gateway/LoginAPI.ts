@@ -1,7 +1,11 @@
 import axios, { AxiosPromise } from 'axios'
+import { Environment, EnvironmentVariable } from '../../application/Environment'
 
 export class LoginAPI {
-  public loginUser([username, password]: string[]): AxiosPromise {
-    return axios.post('http://localhost:3000/auth/login', { username, password })
+  constructor(private environment: Environment) {}
+
+  public loginUser([username, password]: string[]): () => AxiosPromise {
+    const url = this.environment.get(EnvironmentVariable.API_LAYER_URL)
+    return () => axios.post(`${url}/auth/login`, { username, password })
   }
 }
