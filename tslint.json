@@ -15,6 +15,7 @@
     "interface-name": false,
     "interface-over-type-literal": false,
     "object-literal-sort-keys": false,
+    "object-literal-key-quotes": false,
     "no-console": {
       "severity": "warning",
       "options": ["debug", "info", "log", "time", "timeEnd", "trace"]
