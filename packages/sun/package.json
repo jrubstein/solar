@@ -16,8 +16,8 @@
     "test": "jest",
     "test:watch": "yarn test --watch",
     "clean": "rm -rfv ./dist",
-    "circular": "madge -b ./src . --circular",
-    "prettier": "../../node_modules/prettier/bin-prettier.js --config ../../.prettierrc --write \"{,!(excluded|directories)/**/}*.{ts,json,tsx,md}\""
+    "circular": "../../node_modules/madge/bin/cli.js -b ./src . --circular",
+    "prettier": "../../node_modules/prettier/bin-prettier.js --config ../../.prettierrc --write \"{,!(excluded|node_modules)/**/}*.{ts,json,tsx,md}\""
   },
   "dependencies": {
     "@koa/cors": "^2.2.2",
@@ -41,7 +41,6 @@
     "@types/koa-router": "^7.0.32",
     "@types/koa__cors": "^2.2.3",
     "dotenv": "^6.1.0",
-    "madge": "^3.2.0",
     "nodemon": "^1.18.4"
   },
   "nodemonConfig": {

@@ -33,7 +33,7 @@ routerService.subscribe(store)
 authorizationService.subscribe(store)
 
 // Services
-// TODO: Find a clean way to send the API to sagas
+// TODO: Find a clean way to send the API to sagas - Sagas has context
 export const userAPI = new UserAPI(authorizationService)
 
 ReactDOM.render(

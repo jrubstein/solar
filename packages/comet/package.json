@@ -13,7 +13,8 @@
     "build:watch": "yarn build -w",
     "test": "jest",
     "test:watch": "yarn test --watch",
-    "prettier": "../../node_modules/prettier/bin-prettier.js --config ../../.prettierrc --write \"{,!(excluded|directories)/**/}*.{ts,json,tsx,md}\""
+    "prettier": "../../node_modules/prettier/bin-prettier.js --config ../../.prettierrc --write \"{,!(excluded|node_modules)/**/}*.{ts,json,tsx,md}\"",
+    "circular": "../../node_modules/madge/bin/cli.js -b ./src . --circular"
   },
   "devDependencies": {
     "@types/enzyme": "^3.1.14",
