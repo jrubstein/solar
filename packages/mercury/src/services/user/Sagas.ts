@@ -1,12 +1,11 @@
 import { call, takeLatest, getContext } from 'redux-saga/effects'
 import { GET_LOGGED_USER_ACTION_TYPE } from './Actions'
-import { userAPI } from '../../application/Bootstrap'
+import { Gateway } from '../gateway';
 
 function* getLoggedUser() {
   try {
-    const context = yield getContext('authorizationService')
-    console.log(context)
-    const response = yield call(userAPI.getLoggedUser)
+    const gateway: Gateway = yield getContext('gateway')
+    const response = yield call(gateway.getUserAPI().getLoggedUser)
     console.log(response)
   } catch (e) {
     console.log(e)

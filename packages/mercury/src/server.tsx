@@ -1,14 +1,20 @@
 import 'reflect-metadata'
-import Koa from 'koa'
-import bodyParser from 'koa-bodyparser'
-import serve from 'koa-static'
-import compress from 'koa-compress'
 import { ApplicationConfiguration } from './application/Configuration'
+import bodyParser from 'koa-bodyparser'
+import compress from 'koa-compress'
+import Koa from 'koa'
 import path from 'path'
 import send from 'koa-send'
+import serve from 'koa-static'
 
-;(async () => {
-  const options = { gzip: true, maxage: 0 } //,immutable: true}
+(async () => {
+  const isProduction = process.env.NODE_ENV === 'production'
+
+  let options: {[key: string]: any} = { gzip: true, maxage: 0 }
+  if (isProduction) {
+    options = { gzip: true, inmutable: true }
+  }
+
   const rootPath = path.join(__dirname, '..', 'assets')
   const app = new Koa()
   app.use(bodyParser())
@@ -17,7 +23,9 @@ import send from 'koa-send'
 
   app.use(async (context: Koa.Context, next) => {
     await next()
-    if (context.method !== 'HEAD' && context.method !== 'GET') return
+    if (context.method !== 'HEAD' && context.method !== 'GET') {
+      return
+    }
     await send(context, 'index.html', { ...options, root: rootPath })
   })
 

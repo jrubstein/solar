@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
 import { reducer as form } from 'redux-form/immutable'
 import { I18NReducer, I18NReducerType } from '../services/i18n/Reducer'
-import createSagaMiddleware from 'redux-saga'
+import createSagaMiddleware, { SagaMiddleware } from 'redux-saga'
 import loginSaga from '../components/Login/Sagas'
 import { AuthReducer, AuthReducerType } from '../services/auth/Reducer'
 import { LoginReducer, LoginReducerType } from '../components/login/Reducer'
@@ -9,6 +9,7 @@ import { RouterReducer, RouterReducerType } from '../services/router/Reducer'
 import { FormStateMap } from 'redux-form'
 import { AuthorizationService } from '../services/auth/AuthorizationService'
 import userSaga from '../services/user/Sagas'
+import { Gateway } from '../services/gateway'
 
 export type StoreType = {
   i18n: I18NReducerType
@@ -26,11 +27,17 @@ const getInitialState = (authorizationService: AuthorizationService): Partial<St
   }
 }
 
-export const initStore = (authorizationService: AuthorizationService) => {
+const configureSagas = (sagaMiddleware: SagaMiddleware<any>) => {
+    // Sagas
+    sagaMiddleware.run(loginSaga)
+    sagaMiddleware.run(userSaga)
+}
+
+export const initStore = (gateway: Gateway, authorizationService: AuthorizationService) => {
   // add the middlewares
   const sagaMiddleware = createSagaMiddleware({
     context: {
-      authorizationService,
+      gateway,
     },
   })
   let middlewares = [sagaMiddleware]
@@ -50,10 +57,6 @@ export const initStore = (authorizationService: AuthorizationService) => {
 
   // create the store
   const store = createStore(rootStore, getInitialState(authorizationService), composeEnhancers(middleware))
-
-  // Sagas
-  sagaMiddleware.run(loginSaga)
-  sagaMiddleware.run(userSaga)
-
+  configureSagas(sagaMiddleware)
   return store
 }
