@@ -4,6 +4,7 @@ import { Switch, Route, Redirect, Link } from 'react-router-dom'
 import Loadable from 'react-loadable'
 import { Helmet } from 'react-helmet'
 import { ProtectedRoute } from '../services/router/ProtectedRoute'
+import { PublicRoute } from '../services/router/PublicRoute'
 
 const LoginComponent = Loadable({
   loader: () => import('../views/login'),
@@ -23,9 +24,9 @@ export class Application extends React.Component {
           <title>This is mercury 22</title>
         </Helmet>
         <Switch>
-          <Route path="/login" component={LoginComponent} />
           <ProtectedRoute path="/dashboard" component={DashbordComponent} />
-          <Redirect from="*" to="/login" />
+          <PublicRoute path="/login" component={LoginComponent} />
+          <Redirect from="*" to="/dashboard" />
         </Switch>
         <ul>
           <li>

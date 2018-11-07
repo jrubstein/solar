@@ -41,7 +41,7 @@ routerService.subscribe(store)
 authorizationService.subscribe(store)
 
 // If there is a valid token and the path is not public, we load the current user
-if (store.getState().auth.authToken && window.location.pathname !== '/login') {
+if (!!store.getState().auth.authToken && window.location.pathname !== '/login') {
   store.dispatch(GET_LOGGED_USER())
 }
 
