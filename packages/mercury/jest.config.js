@@ -57,7 +57,7 @@ module.exports = {
   // A set of global variables that need to be available in all test environments
   globals: {
     "ts-jest": {
-      "tsConfig": "tsconfig.json"
+      "tsConfigFile": "tsconfig.json"
     }
   },
 
@@ -137,7 +137,7 @@ module.exports = {
 
   // The glob patterns Jest uses to detect test files
   testMatch: [
-    "**/test/*.+(ts|tsx)"
+    "**/__tests__/*.+(ts|tsx|js)"
   ],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped

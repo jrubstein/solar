@@ -13,7 +13,7 @@
     "build": "yarn clean && ../../node_modules/typescript/bin/tsc",
     "build:watch": "yarn build -w",
     "start": "nodemon ./dist/src/index.js",
-    "test": "jest",
+    "test": "../../node_modules/jest/bin/jest.js --config ./jest.config.js",
     "test:watch": "yarn test --watch",
     "clean": "rm -rfv ./dist",
     "circular": "../../node_modules/madge/bin/cli.js -b ./src . --circular",
