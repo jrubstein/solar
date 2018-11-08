@@ -11,7 +11,7 @@
     "clean": "rm -rfv ./dist",
     "build": "yarn clean && ../../node_modules/typescript/bin/tsc",
     "build:watch": "yarn build -w",
-    "test": "jest",
+    "test": "../../node_modules/jest/bin/jest.js --config ./jest.config.js",
     "test:watch": "yarn test --watch",
     "prettier": "../../node_modules/prettier/bin-prettier.js --config ../../.prettierrc --write \"{,!(excluded|node_modules)/**/}*.{ts,json,tsx,md}\"",
     "circular": "../../node_modules/madge/bin/cli.js -b ./src . --circular"
