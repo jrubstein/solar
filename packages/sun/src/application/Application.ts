@@ -8,11 +8,13 @@ import { PublicResources, ProtectedResources } from '../Utils/Resources'
 import cors from '@koa/cors'
 import { Logger } from 'winston'
 import { LoggerFactory } from '../Utils/LoggerFactory'
+import { Server } from 'http'
 
 @injectable()
 export class Application {
   private app: Koa
   private readonly LOGGER: Logger
+  private server!: Server
 
   constructor(
     @inject(TYPES.ApplicationConfiguration) private configuration: ApplicationConfigurationType,
@@ -31,6 +33,7 @@ export class Application {
         allowMethods: '*',
       })
     )
+    this.app.use(this.handleError.bind(this))
     this.publicResources.forEach(resource => this.app.use(resource.routes))
 
     this.app.use(AuthenticationMiddleware(this.configuration.JWT_SECRET))
@@ -38,9 +41,25 @@ export class Application {
     this.app.use(context => (context.body = '404'))
   }
 
-  public listen() {
-    this.app.listen(this.configuration.PORT, () => {
-      this.LOGGER.info(`server is up on port ${this.configuration.PORT}`)
+  public listen(port?: number): Server {
+    const serverPort = port == null ? this.configuration.PORT : port
+    this.server = this.app.listen(serverPort, () => {
+      this.LOGGER.info(`server is up on port ${serverPort}`)
     })
+    return this.server
+  }
+
+  public tearDown() {
+    this.app.removeAllListeners()
+  }
+
+  private async handleError(context: Koa.Context, next: () => {}) {
+    try {
+      await next()
+    } catch (e) {
+      this.LOGGER.error(e.message, e)
+      context.body = e.message
+      context.status = e.status
+    }
   }
 }
