@@ -39,5 +39,6 @@ export const LOGIN_FAILED = error => {
 export const LOGOUT = () => {
   return {
     type: LOGOUT_ACTION_TYPE,
+    token: null,
   }
 }

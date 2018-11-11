@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import React from 'react'
-import { Switch, Route, Redirect, Link } from 'react-router-dom'
+import { Switch, Redirect, Link } from 'react-router-dom'
 import Loadable from 'react-loadable'
 import { Helmet } from 'react-helmet'
 import { ProtectedRoute } from '../services/router/ProtectedRoute'

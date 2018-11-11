@@ -9,6 +9,17 @@ export class AuthorizationService {
     this.unsubscribeHandler = store.subscribe(() => this.subscriptionListener(store))
   }
 
+  public getAuthToken() {
+    return this.currentToken.authToken
+  }
+
+  public unsubscribe() {
+    if (!this.unsubscribeHandler) {
+      return
+    }
+    this.unsubscribeHandler()
+  }
+
   private subscriptionListener(store: Store) {
     const {
       auth: { authToken },
@@ -16,16 +27,5 @@ export class AuthorizationService {
     if (authToken !== this.currentToken.authToken) {
       this.currentToken = { authToken }
     }
-  }
-
-  public getAuthToken() {
-    return this.currentToken.authToken
-  }
-
-  public unsubscribe() {
-    if (!this.unsubscribe) {
-      return
-    }
-    this.unsubscribeHandler()
   }
 }

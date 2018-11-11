@@ -55,6 +55,7 @@
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
+    "@types/enzyme": "^3.1.15",
     "@types/i18next": "^11.9.3",
     "@types/i18next-xhr-backend": "^1.4.1",
     "@types/jest": "^23.3.5",
@@ -71,12 +72,16 @@
     "@types/react-loadable": "^5.4.1",
     "@types/react-redux": "^6.0.9",
     "@types/react-router-dom": "^4.3.1",
+    "@types/react-test-renderer": "^16.0.3",
     "@types/redux": "^3.6.0",
     "@types/redux-form": "^7.4.10",
     "@types/redux-saga": "^0.10.5",
     "@types/reflect-metadata": "^0.1.0",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.7.0",
     "jest": "^23.6.0",
     "nodemon": "^1.18.5",
+    "react-test-renderer": "^16.6.1",
     "ts-jest": "^23.10.4"
   }
 }

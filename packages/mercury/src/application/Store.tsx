@@ -37,7 +37,7 @@ export const initStore = (gateway: Gateway, persistanceService: PersistanceServi
     },
   })
   const middlewares = [sagaMiddleware]
-  const windowIfDefined = typeof window === 'undefined' ? null : (window as any)
+  const windowIfDefined = typeof window === 'undefined' ? {} : (window as any)
   const composeEnhancers = windowIfDefined.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
   // apply the middleware

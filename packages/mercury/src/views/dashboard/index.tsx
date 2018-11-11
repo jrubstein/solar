@@ -18,7 +18,7 @@ interface DashboardProps extends WithNamespaces, WithStyles {
   requestLoggedUser: () => void
 }
 
-class DashboardView extends React.Component<DashboardProps> {
+export class DashboardView extends React.Component<DashboardProps> {
   constructor(props: DashboardProps) {
     super(props)
   }

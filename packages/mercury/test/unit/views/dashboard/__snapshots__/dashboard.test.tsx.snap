@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DashboardView Test render should render the dashboard 1`] = `
+<section>
+  <button
+    onClick={[MockFunction]}
+  >
+    dashbord-request-user
+  </button>
+</section>
+`;

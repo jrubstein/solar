@@ -6,7 +6,7 @@ export type AuthReducerType = {
 
 const initialState: AuthReducerType = { authToken: null }
 
-export const AuthReducer = (state = initialState, action: { type: string; token: string }) => {
+export const AuthReducer = (state = initialState, action: { type: string; token: string | null }) => {
   switch (action.type) {
     case LOGIN_SUCESSFUL_ACTION_TYPE:
       return {
